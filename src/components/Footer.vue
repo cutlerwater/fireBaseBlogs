@@ -6,16 +6,16 @@
           <router-link class="header" :to="{ name: 'Home' }">FireBlogs</router-link>
           <ul>
             <li>
-              <a href="#"><youTube class="svg-icon"/></a>
+              <a href="https://www.youtube.com/channel/UCaQLwbwbdZbadVkodFAhBiA"><youTube class="svg-icon"/></a>
             </li>
-            <li>
+            <!-- <li>
               <a href="#"><twitter class="svg-icon"/></a>
             </li>
             <li>
               <a href="#"><instagram class="svg-icon"/></a>
-            </li>
+            </li> -->
             <li>
-              <a href="#"><linkedin class="svg-icon"/></a>
+              <a href="https://www.linkedin.com/in/garrett-cutler-20b52311/"><linkedin class="svg-icon"/></a>
             </li>
           </ul>
         </div>
@@ -23,7 +23,7 @@
           <ul>
             <router-link class="link" :to="{ name: 'Home' }">Home</router-link>
             <router-link class="link" :to="{ name: 'Blogs' }">Blogs</router-link>
-            <router-link v-if="admin" class="link" :to="{ name: 'CreatePost' }">Create Post</router-link>
+            <router-link v-if="admin" to="#">Create Post</router-link>
             <router-link v-if="!user" class="link" :to="{ name: 'Login' }">Login In / Register</router-link>
           </ul>
         </div>
@@ -37,15 +37,11 @@
 
 <script>
 import youTube from "../assets/Icons/youtube-brands.svg";
-import twitter from "../assets/Icons/twitter-brands.svg";
-import instagram from "../assets/Icons/instagram-brands.svg";
 import linkedin from "../assets/Icons/linkedin-brands.svg";
 export default {
   name: "footer-vue",
   components: {
     youTube,
-    twitter,
-    instagram,
     linkedin,
   },
   computed: {
