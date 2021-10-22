@@ -26,7 +26,7 @@ import Arrow from "../assets/Icons/arrow-right-light.svg";
 export default {
   name: "Home",
   components: { BlogPost, BlogCard, Arrow },
-    data() {
+  data() {
     return {
       welcomeScreen: {
         title: "Welcome!",
@@ -35,30 +35,20 @@ export default {
         welcomeScreen: true,
         photo: "coding",
       },
-      sampleBlogPost: [
-      {
-        title: "This is a filler post",
-        blogHTML: "Test",
-        blogCoverPhoto: "beautiful-stories",
-      },
-      {
-        title: "This is a filler post",
-        blogHTML: "Test",
-        blogCoverPhoto: "beautiful-stories",
-      },
-      ],
-      sampleBlogCards: [
-          {blogTitle: "Blog Card #1", blogCoverPhoto: "stock-1", blogDate: "October 21, 2021"},
-          {blogTitle: "Blog Card #2", blogCoverPhoto: "stock-2", blogDate: "October 21, 2021"},
-          {blogTitle: "Blog Card #3", blogCoverPhoto: "stock-3", blogDate: "October 21, 2021"},
-          {blogTitle: "Blog Card #4", blogCoverPhoto: "stock-4", blogDate: "October 21, 2021"},
-      ],
     };
-},
-};    
-    
-    
-  
+  },
+  computed: {
+    blogPostsFeed() {
+      return this.$store.getters.blogPostsFeed;
+    },
+    blogPostsCards() {
+      return this.$store.getters.blogPostsCards;
+    },
+    user() {
+      return this.$store.state.user;
+    },
+  },
+};
 </script>
 <style lang="scss" scoped>
 .blog-card-wrap {
