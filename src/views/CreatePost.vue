@@ -22,17 +22,72 @@
       </div>
       <div class="blog-actions">
         <button @click="uploadBlog">Publish Blog</button>
-        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Post Preview</router-link>
+        <router-link class="router-button" to="#">Post Preview</router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
-
+import BlogCoverPreview from "../components/BlogCoverPreview";
+import Quill from "quill";
+window.Quill = Quill;
+const ImageResize = require("quill-image-resize-module").default;
+Quill.register("modules/imageResize", ImageResize);
 export default {
-
+  name: "CreatePost",
+  data() {
+    return {
+      file: null,
+      error: null,
+      errorMsg: null,
+      loading: null,
+      editorSettings: {
+        modules: {
+          imageResize: {},
+        },
+      },
+    };
+  },
+  components: {
+    BlogCoverPreview,
+    
+  },
+  methods: {
+     fileChange() {
+      this.file = this.$refs.blogPhoto.files[0];
+      const fileName = this.file.name;
+      this.$store.commit("fileNameChange", fileName);
+      this.$store.commit("createFileURL", URL.createObjectURL(this.file));
+     },
+     openPreview() {
+      this.$store.commit("openPhotoPreview");
+     },
+  },
+   computed: {
+    profileId() {
+      return this.$store.state.profileId;
+    },
+    blogCoverPhotoName() {
+      return this.$store.state.blogPhotoName;
+    },
+    blogTitle: {
+      get() {
+        return this.$store.state.blogTitle;
+      },
+      set(payload) {
+        this.$store.commit("updateBlogTitle", payload);
+      },
+    },
+    blogHTML: {
+      get() {
+        return this.$store.state.blogHTML;
+      },
+      set(payload) {
+        this.$store.commit("newBlogPost", payload);
+      },
+    },
+  },
 };
 </script>
 

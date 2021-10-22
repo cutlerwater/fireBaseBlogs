@@ -23,14 +23,16 @@
       };
   },
    created() {
-    firebase.auth().onAuthStateChanged((user) => {
+    firebase.auth().onAuthStateChanged(async (user) => {
       this.$store.commit("updateUser", user);
       if (user) {
+        const token = await user.getIdTokenResult();
+        console.log(token);
         this.$store.dispatch("getCurrentUser", user);
       }
     });
     this.checkRoute();
-    this.$store.dispatch("getPost");
+    
   },
    mounted() {},
   methods: {

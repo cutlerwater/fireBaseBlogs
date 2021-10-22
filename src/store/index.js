@@ -14,8 +14,14 @@ export default new Vuex.Store({
       {blogTitle: "Blog Card #3", blogCoverPhoto: "stock-3", blogDate: "October 21, 2021"},
       {blogTitle: "Blog Card #4", blogCoverPhoto: "stock-4", blogDate: "October 21, 2021"},
     ],
+    blogHTML: "Write your blog title here...",
+    blogTitle: "",
+    blogPhotoName: "",
+    blogPhotoFileURL: null,
+    blogPhotoPreview: null,
     editPost: null,
     user: null,
+    profileAdmin: null,
     profileEmail: null,
     profileFirstName: null,
     profileLastName: null,
@@ -23,12 +29,31 @@ export default new Vuex.Store({
     profileId: null,
     profileInitials: null,
   },
-  mutations: { 
+  mutations: {
+    newBlogPost(state, payload) {
+      state.blogHTML = payload;
+    },
+    updateBlogTitle(state, payload) {
+      state.blogTitle = payload;
+    },
+    fileNameChange(state, payload) {
+      state.blogPhotoName = payload;
+    },
+    createFileURL(state, payload) {
+      state.blogPhotoFileURL = payload;
+    },
+    openPhotoPreview(state) {
+      state.blogPhotoPreview = !state.blogPhotoPreview;
+    },
     toggleEditPost(state, payload) {
       state.editPost = payload;
     },
-    updateuser(state, payload) {
+    updateUser(state, payload) {
       state.user = payload;
+    },
+    setProfileAdmin(state, payload) {
+      state.profileAdmin = payload;
+      console.log(state.profileAdmin);
     },
     setProfileInfo(state, doc) {
       state.profileId = doc.id;
@@ -53,14 +78,14 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    async getCurrentUser({ commit }) {
+    async getCurrentUser({ commit }, user) {
       const dataBase = await db.collection("users").doc(firebase.auth().currentUser.uid);
       const dbResults = await dataBase.get();
       commit("setProfileInfo", dbResults);
       commit("setProfileInitials");
-      /* const token = await user.getIdTokenResult();
+      const token = await user.getIdTokenResult();
       const admin = await token.claims.admin;
-      commit("setProfileAdmin", admin); */
+      commit("setProfileAdmin", admin);
   },
   async updateUserSettings({ commit, state }) {
     const dataBase = await db.collection("users").doc(state.profileId);
